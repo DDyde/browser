@@ -6,51 +6,42 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    x:Name="settingPage" Loaded="settingPage_Loaded"
     Background="{StaticResource wbBackGround}">
 
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
             <Grid Background="{StaticResource wbRowLine}">
-                <Button  Margin="5,0,0,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
+                <Button  Margin="5,0,0,0" Background="Transparent" Foreground="{StaticResource wbForeground}" Click="Button_Click">
                     <Image Source="Assets/icon/back.png"/>                
                 </Button>
 
                 <TextBlock Text="Settings" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
-        <Pivot Grid.Row="1" x:Name="settingsPivotView" FontFamily="shrift">
-            <PivotItem Header="Favorite" FontFamily="shrift">
-                
-            </PivotItem>
-            
-            <PivotItem Header="History">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+        
+        
+        <NavigationView x:Name="navView" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="navView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Account" Tag="accountItem" Icon="Emoji2"/>
 
-                    <Grid x:Name="historyList" Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+                <NavigationViewItem Content="Favorite" Tag="favoriteItem">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets\icon\ico\serd.ico"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                        <TextBlock Text="Your history" VerticalAlignment="Center"/>
+                <NavigationViewItem Content="Settings" Tag="settingItem">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="Assets\icon\ico\shest.ico"/>
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                        <ListBox x:Name="historyListBox" Grid.Row="1">
-                            <ListBoxItem Template="{StaticResource historyList}" Content="Google.com"/>
-                        </ListBox>
-                        
-                    </Grid>
-                </Grid>
-            </PivotItem>
-            
-            <PivotItem Header="Search engine">
-
-            </PivotItem>
-        </Pivot>
+                <NavigationViewItem Content="History" Tag="historyItem" Icon="Clock"/>
+            </NavigationView.MenuItems>
+            <Frame x:Name="contentFrame"/>
+        </NavigationView>
         </Grid>
 </Page>

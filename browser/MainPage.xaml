@@ -16,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <muxc:TabView Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested">
+        <muxc:TabView Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <muxc:TabView.TabStripHeader>
                 <Grid>
 
@@ -28,13 +28,14 @@
                 </Grid>
             </muxc:TabView.TabStripFooter>
             <muxc:TabView.TabItems>
-                <muxc:TabViewItem>
+                <muxc:TabViewItem >
                     <muxc:TabViewItem.IconSource>
                         <muxc:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
                     </muxc:TabViewItem.IconSource>
-                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted">
-
+                    
+                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" >
                     </WebView>
+
                 </muxc:TabViewItem>
             </muxc:TabView.TabItems>
         </muxc:TabView>
@@ -66,8 +67,6 @@
                 <Button x:Name="favorite" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
                     <Image Source="Assets/icon/serd.png"/>
                 </Button>
-                <!--<Button x:Name="history" Content="history" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
-                </Button>-->
                 <Button x:Name="setting" Content="Menu"  Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
                     <Button.Flyout>
                         <MenuFlyout>
