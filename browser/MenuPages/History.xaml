@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource wbBackGround}">
+    Background="{StaticResource wbBackGround}" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -15,5 +15,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="History" HorizontalAlignment="Center" Foreground="{StaticResource wbForeground}"/>
+        <ListBox x:Name="listHistory" Grid.Row="1" Background="{x:Null}">
+            
+        </ListBox>
     </Grid>
 </Page>

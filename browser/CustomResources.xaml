@@ -5,7 +5,7 @@
     
     <SolidColorBrush x:Key="wbBackGround" Color="#313552"/>
     <SolidColorBrush x:Key="wbRowLine" Color="#B8405E"/>
-    <!--<SolidColorBrush x:Key="wb" Color="#2EB086"/>-->
+    <SolidColorBrush x:Key="wbGreen" Color="#2EB086"/>
     <SolidColorBrush x:Key="wbForeground" Color="#EEE6CE"/>
     <ControlTemplate x:Key="historyList" TargetType="ListBoxItem">
         <Grid>

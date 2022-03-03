@@ -51,5 +51,32 @@ namespace browser.history
             var file = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
             await document.SaveToFileAsync(file);
         }
+
+        public async Task<List<string>> Fetch(string source)
+        {
+            List<string> list = new List<string>();
+
+            await Task.Run(async () =>
+            {
+                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+                XmlDocument document = await XmlDocument.LoadFromFileAsync(file);
+                var historyItem = document.GetElementsByTagName("historyitem");
+
+                for (int i = 0; i < historyItem.Count; i++)
+                {
+                    var historyChild = historyItem[i].ChildNodes;
+
+                    for (int j = 0; j < historyChild.Count; j++)
+                    {
+                        if(historyChild[j].InnerText == source)
+                        {
+                            list.Add(historyChild[j].InnerText);
+                        }
+                    }
+                }
+            });
+
+            return list;
+        }
     }
 }

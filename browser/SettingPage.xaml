@@ -23,25 +23,25 @@
             </Grid>
         
         
-        <NavigationView x:Name="navView" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="navView_SelectionChanged">
-            <NavigationView.MenuItems>
-                <NavigationViewItem Content="Account" Tag="accountItem" Icon="Emoji2"/>
+        <NavigationView x:Name="navView" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="navView_SelectionChanged" Background="{StaticResource wbGreen}">
+            <NavigationView.MenuItems >
+                <NavigationViewItem Content="Account" Tag="accountItem" Icon="Emoji2" Foreground="{StaticResource wbForeground}"/>
 
-                <NavigationViewItem Content="Favorite" Tag="favoriteItem">
+                <NavigationViewItem Content="Favorite" Tag="favoriteItem" Foreground="{StaticResource wbForeground}">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets\icon\ico\serd.ico"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Settings" Tag="settingItem">
+                <NavigationViewItem Content="Settings" Tag="settingItem" Foreground="{StaticResource wbForeground}">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets\icon\ico\shest.ico"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="History" Tag="historyItem" Icon="Clock"/>
+                <NavigationViewItem Content="History" Tag="historyItem" Icon="Clock" Foreground="{StaticResource wbForeground}"/>
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame"/>
+            <Frame x:Name="contentFrame" Background="{StaticResource wbBackGround}"/>
         </NavigationView>
         </Grid>
 </Page>
