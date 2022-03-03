@@ -28,7 +28,6 @@ namespace browser
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
 

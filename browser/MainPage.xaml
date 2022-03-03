@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Class="browser.MainPage"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     x:Name="MainWindow"
     Background="{StaticResource wbBackGround}">
@@ -15,9 +16,28 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" Grid.Row="1" RenderTransformOrigin="0.618,0.646">
-            
-        </WebView>
+        <muxc:TabView Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested">
+            <muxc:TabView.TabStripHeader>
+                <Grid>
+
+                </Grid>
+            </muxc:TabView.TabStripHeader>
+            <muxc:TabView.TabStripFooter>
+                <Grid>
+
+                </Grid>
+            </muxc:TabView.TabStripFooter>
+            <muxc:TabView.TabItems>
+                <muxc:TabViewItem>
+                    <muxc:TabViewItem.IconSource>
+                        <muxc:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
+                    </muxc:TabViewItem.IconSource>
+                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted">
+
+                    </WebView>
+                </muxc:TabViewItem>
+            </muxc:TabView.TabItems>
+        </muxc:TabView>
 
         <Grid x:Name="TitleBarGrid" Background="{StaticResource wbRowLine}">
             <Grid.ColumnDefinitions>
@@ -74,6 +94,8 @@
             <Button x:Name="sslBth" Grid.Column="1" Background="{x:Null}">
                 <Image x:Name="sslIcon" Source="Assets\icon\ico\lock.ico" Margin="-5,-5,-5,-5"/>
             </Button>
+
+
 
             <TextBox Grid.Column="2" x:Name="searchBox" PlaceholderText="search..." KeyDown="searchBox_KeyDown" BorderThickness="0" Height="30" Margin="5, 0"/>
 

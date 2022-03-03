@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -109,6 +110,23 @@ namespace browser
                 throw;
             }
             
+        }
+
+        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
+        {
+            var newTab = new muxc.TabViewItem();
+            newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Add };
+
+            WebView webView = new WebView();
+            newTab.Content = webView;
+            webView.Navigate(new Uri("https://www.google.com"));
+            sender.TabItems.Add(newTab);
+            sender.SelectedItem = newTab;
+        }
+
+        private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
+        {
+            sender.TabItems.Remove(args.Tab);
         }
     }
 }
