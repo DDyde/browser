@@ -12,23 +12,20 @@ namespace browser.history
     {
         string fileName = "settings.xml";
 
-        public async void saveSearchTerm(string searchTerm, string title, string url)
+        public async void saveSearchTerm(string title, string url)
         {
             var document = await DocumentLoad().AsAsyncOperation();
 
             var history = document.GetElementsByTagName("history");
 
-            XmlElement elementSearchTerm = document.CreateElement("searchTerm");
             XmlElement elementSiteName = document.CreateElement("sitename");
             XmlElement elementURL = document.CreateElement("url");
 
             var historyItem = history[0].AppendChild(document.CreateElement("historyitem"));
 
-            historyItem.AppendChild(elementSearchTerm);
             historyItem.AppendChild(elementSiteName);
             historyItem.AppendChild(elementURL);
 
-            elementSearchTerm.InnerText = searchTerm;
             elementSiteName.InnerText = title;
             elementURL.InnerText = url;
 

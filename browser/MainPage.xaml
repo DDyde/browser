@@ -11,20 +11,18 @@
 
     <Grid x:Name="BaseGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="32"/>
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" Grid.Row="2" RenderTransformOrigin="0.618,0.646">
-            <UIElement.RenderTransform>
-                <TransformGroup/>
-            </UIElement.RenderTransform>
+        <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" Grid.Row="1" RenderTransformOrigin="0.618,0.646">
+            
         </WebView>
 
-        <Grid x:Name="TitleBarGrid" Grid.Row="1" Background="{StaticResource wbRowLine}">
+        <Grid x:Name="TitleBarGrid" Background="{StaticResource wbRowLine}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -44,7 +42,7 @@
                 </Button>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button x:Name="favorite" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
                     <Image Source="Assets/icon/serd.png"/>
                 </Button>
@@ -73,7 +71,11 @@
                 </Button>
             </StackPanel>
 
-            <TextBox Grid.Column="1" x:Name="searchBox" PlaceholderText="search..." KeyDown="searchBox_KeyDown" BorderThickness="0" Height="30" Margin="5, 0"/>
+            <Button x:Name="sslBth" Grid.Column="1" Background="{x:Null}">
+                <Image x:Name="sslIcon" Source="Assets\icon\ico\lock.ico" Margin="-5,-5,-5,-5"/>
+            </Button>
+
+            <TextBox Grid.Column="2" x:Name="searchBox" PlaceholderText="search..." KeyDown="searchBox_KeyDown" BorderThickness="0" Height="30" Margin="5, 0"/>
 
         </Grid>
 

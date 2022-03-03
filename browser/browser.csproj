@@ -137,8 +137,10 @@
   <ItemGroup>
     <Content Include="Assets\icon\home.png" />
     <Content Include="Assets\icon\back.png" />
+    <Content Include="Assets\icon\ico\lock.ico" />
     <Content Include="Assets\icon\ico\serd.ico" />
     <Content Include="Assets\icon\ico\shest.ico" />
+    <Content Include="Assets\icon\ico\unlock.ico" />
     <Content Include="Assets\icon\reload.png" />
     <Content Include="Assets\icon\forward.png" />
     <Content Include="Assets\icon\serd.png" />

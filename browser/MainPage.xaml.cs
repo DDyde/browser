@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
@@ -77,6 +78,20 @@ namespace browser
 
         private void webBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
+            ToolTip toolTip = new ToolTip();
+
+            if (webBrowser.Source.AbsoluteUri.Contains("https"))
+            {
+                sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/lock.ico"));
+                toolTip.Content = "This website has a SSL certefication";
+                ToolTipService.SetToolTip(sslBth, toolTip);
+            } else
+            {
+                sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/unlock.ico"));
+                toolTip.Content = "This website hasn't a SSL certefication";
+                ToolTipService.SetToolTip(sslBth, toolTip);
+            }
+
             try
             {
                 searchBox.Text = webBrowser.Source.AbsoluteUri;
@@ -84,7 +99,7 @@ namespace browser
                 DataTransfer dataTransfer = new DataTransfer();
                 if (!string.IsNullOrEmpty(searchBox.Text))
                 {
-                    dataTransfer.saveSearchTerm(searchBox.Text, webBrowser.DocumentTitle, webBrowser.Source.AbsoluteUri);
+                    dataTransfer.saveSearchTerm(webBrowser.DocumentTitle, webBrowser.Source.AbsoluteUri);
                 }
                 
             }
