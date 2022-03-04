@@ -68,7 +68,7 @@ namespace browser.history
 
                     for (int j = 0; j < historyChild.Count; j++)
                     {
-                        if(historyChild[j].InnerText == source)
+                        if(historyChild[j].NodeName == source)
                         {
                             list.Add(historyChild[j].InnerText);
                         }

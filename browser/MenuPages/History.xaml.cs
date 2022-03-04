@@ -24,7 +24,7 @@ namespace browser.MenuPages
     public sealed partial class History : Page
     {
 
-        int listBoxItemCount;
+        int listBoxItemCount  = 0;
 
         public History()
         {
@@ -40,6 +40,8 @@ namespace browser.MenuPages
                 ListBoxItem listBoxItem = new ListBoxItem();
                 listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
                 listBoxItemCount++;
+                Style style = Application.Current.Resources["historyList"] as Style;
+                listBoxItem.Style = style;
                 listBoxItem.Content = item;
                 listHistory.Items.Add(listBoxItem);
             }
