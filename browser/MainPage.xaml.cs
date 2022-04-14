@@ -25,6 +25,11 @@ namespace browser
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        muxc.TabViewItem selectedTab = null;
+        WebView selectedWebView = null;
+        int settingTabCount = 0;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -64,7 +69,15 @@ namespace browser
 
         private void Search()
         {
-            webBrowser.Source = new Uri("https://www.google.com/search?q=" + searchBox.Text);
+            if (selectedWebView == null)
+            {
+                webBrowser.Source = new Uri("https://www.google.com/search?q=" + searchBox.Text);
+            }
+            else
+            {
+                selectedWebView.Source = new Uri("https://www.google.com/search?q=" + searchBox.Text);
+            }
+            
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -81,6 +94,23 @@ namespace browser
         {
             ToolTip toolTip = new ToolTip();
 
+            try
+            {
+                searchBox.Text = webBrowser.Source.AbsoluteUri;
+
+                DataTransfer dataTransfer = new DataTransfer();
+                if (!string.IsNullOrEmpty(searchBox.Text))
+                {
+                    dataTransfer.saveSearchTerm(webBrowser.DocumentTitle, webBrowser.Source.AbsoluteUri);
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
             if (webBrowser.Source.AbsoluteUri.Contains("https"))
             {
                 sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/lock.ico"));
@@ -93,23 +123,8 @@ namespace browser
                 ToolTipService.SetToolTip(sslBth, toolTip);
             }
 
-            try
-            {
-                searchBox.Text = webBrowser.Source.AbsoluteUri;
-
-                DataTransfer dataTransfer = new DataTransfer();
-                if (!string.IsNullOrEmpty(searchBox.Text))
-                {
-                    dataTransfer.saveSearchTerm(webBrowser.DocumentTitle, webBrowser.Source.AbsoluteUri);
-                }
-                
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
             
+
         }
 
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
@@ -122,11 +137,49 @@ namespace browser
             webView.Navigate(new Uri("https://www.google.com"));
             sender.TabItems.Add(newTab);
             sender.SelectedItem = newTab;
+
+            webView.NavigationCompleted += BrowserNavigated;
+
+        }
+
+        private void BrowserNavigated(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            var view = sender as WebView;
+            var tab = view.Parent as muxc.TabViewItem;
+            tab.Header = view.DocumentTitle;
         }
 
         private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
         {
             sender.TabItems.Remove(args.Tab);
+            selectedTab = null;
+            selectedWebView = null;
+
+            if (args.Tab.Name == "settings")
+            {
+                settingTabCount = 0;
+            }
         }
+
+        private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedTab = tabView.SelectedItem as muxc.TabViewItem;
+            if (selectedTab != null)
+            {
+                selectedWebView = selectedTab.Content as WebView;
+                
+            }
+
+            if (selectedWebView != null)
+            {
+                searchBox.Text = selectedWebView.Source.AbsoluteUri;
+            }
+            else
+            {
+                searchBox.Text = " ";
+            }
+
+
+        }   
     }
 }

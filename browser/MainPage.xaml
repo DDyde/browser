@@ -16,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <muxc:TabView Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <muxc:TabView x:Name="tabView" Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabView_SelectionChanged">
             <muxc:TabView.TabStripHeader>
                 <Grid>
 
