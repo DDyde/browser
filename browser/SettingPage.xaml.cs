@@ -38,7 +38,8 @@ namespace browser
                 if (tag == "accountItem")
                 {
                     contentFrame.Navigate(typeof(Account), null, args.RecommendedNavigationTransitionInfo);
-                } else if (tag == "favoriteItem")
+                }
+                else if (tag == "favoriteItem")
                 {
                     contentFrame.Navigate(typeof(Favorite), null, args.RecommendedNavigationTransitionInfo);
                 }
@@ -50,18 +51,8 @@ namespace browser
                 {
                     contentFrame.Navigate(typeof(Setting), null, args.RecommendedNavigationTransitionInfo);
                 }
-                
+
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(MainPage));
-        }
-
-        private void settingPage_Loaded(object sender, RoutedEventArgs e)
-        {
-            navView.SelectedItem = navView.MenuItems[0];
         }
     }
 }

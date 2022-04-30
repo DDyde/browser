@@ -8,6 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     x:Name="MainWindow"
+    Loaded="MainWindow_Loaded"
     Background="{StaticResource wbBackGround}">
 
     <Grid x:Name="BaseGrid">

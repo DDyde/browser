@@ -25,10 +25,10 @@ namespace browser
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
+        int settingTabCount = 0;
+        public string prefix = string.Empty;
         muxc.TabViewItem selectedTab = null;
         WebView selectedWebView = null;
-        int settingTabCount = 0;
 
         public MainPage()
         {
@@ -36,6 +36,8 @@ namespace browser
 
             Data data = new Data();
             data.SettingsFiles();
+
+
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -67,17 +69,23 @@ namespace browser
             }
         }
 
-        private void Search()
+        private async void Search()
         {
-            if (selectedWebView == null)
+            DataTransfer dataTransfer = new DataTransfer();
+            prefix = await dataTransfer.GetEngineAttribute("prefix");
+
+            if (selectedTab.Name != "settingsTab")
             {
-                webBrowser.Source = new Uri("https://www.google.com/search?q=" + searchBox.Text);
+                if (selectedWebView == null)
+                {
+                    webBrowser.Source = new Uri(prefix + searchBox.Text);
+                }
+                else
+                {
+                    selectedWebView.Source = new Uri(prefix + searchBox.Text);
+                }
             }
-            else
-            {
-                selectedWebView.Source = new Uri("https://www.google.com/search?q=" + searchBox.Text);
-            }
-            
+
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -87,7 +95,25 @@ namespace browser
 
         private void settingMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(SettingPage));
+            if (settingTabCount == 0)
+            {
+                AddSetingTab();
+                settingTabCount++;
+            }
+            
+        }
+        
+        private void AddSetingTab()
+        {
+            var settingsTab = new muxc.TabViewItem();
+            settingsTab.Header = "Settings";
+            settingsTab.Name = "settingsTab";
+            settingsTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Setting };
+            Frame frame = new Frame();
+            settingsTab.Content = frame;
+            frame.Navigate(typeof(SettingPage));
+            tabView.TabItems.Add(settingsTab);
+            tabView.SelectedItem = settingsTab;
         }
 
         private void webBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -155,7 +181,7 @@ namespace browser
             selectedTab = null;
             selectedWebView = null;
 
-            if (args.Tab.Name == "settings")
+            if (args.Tab.Name == "settingsTab")
             {
                 settingTabCount = 0;
             }
@@ -180,6 +206,22 @@ namespace browser
             }
 
 
-        }   
+        }
+
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DataTransfer dataTransfer = new DataTransfer();
+                string searchEngineName = await dataTransfer.GetEngineAttribute("name");
+                prefix = await dataTransfer.GetEngineAttribute("prefix");
+
+                searchBox.PlaceholderText = "search with " + searchEngineName + "...";
+            }
+            catch
+            {
+
+            }
+        }
     }
 }

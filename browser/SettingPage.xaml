@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Name="settingPage" Loaded="settingPage_Loaded"
+    x:Name="settingPage"
     Background="{StaticResource wbBackGround}">
 
     <Grid >
@@ -14,10 +14,7 @@
             <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-            <Grid Background="{StaticResource wbRowLine}">
-                <Button  Margin="5,0,0,0" Background="Transparent" Click="Button_Click">
-                    <Image Source="Assets/icon/back.png"/>                
-                </Button>
+        <Grid Background="{StaticResource wbRowLine}">
 
             <TextBlock Text="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource wbForeground}"/>
             </Grid>
