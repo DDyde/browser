@@ -29,12 +29,12 @@
                 </Grid>
             </muxc:TabView.TabStripFooter>
             <muxc:TabView.TabItems>
-                <muxc:TabViewItem >
+                <muxc:TabViewItem x:Name="defaultTab">
                     <muxc:TabViewItem.IconSource>
                         <muxc:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
                     </muxc:TabViewItem.IconSource>
-                    
-                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" >
+
+                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" NewWindowRequested="webBrowser_NewWindowRequested">
                     </WebView>
 
                 </muxc:TabViewItem>

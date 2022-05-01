@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -29,6 +30,8 @@ namespace browser
         public string prefix = string.Empty;
         muxc.TabViewItem selectedTab = null;
         WebView selectedWebView = null;
+        string homeUrl = string.Empty, homeName = string.Empty;
+
 
         public MainPage()
         {
@@ -37,7 +40,34 @@ namespace browser
             Data data = new Data();
             data.SettingsFiles();
 
+            GetHome();
+        }
 
+        private async void GetHome()
+        {
+            try
+            {
+                DataTransfer dataTransfer = new DataTransfer();
+                homeName = await dataTransfer.GetHomeAttribute("name");
+                homeUrl = await dataTransfer.GetHomeAttribute("url");
+
+            }
+            catch (Exception ex)
+            {
+                MessageDialog messageDialog = new MessageDialog(ex.Message);
+                await messageDialog.ShowAsync();
+            }
+
+            if (!string.IsNullOrEmpty(homeUrl) && !string.IsNullOrEmpty(homeName))
+            {
+                NavigateHome();
+            }
+        }
+
+        private void NavigateHome()
+        {
+            selectedWebView.Navigate(new Uri(homeUrl));
+            selectedTab.Header = selectedWebView.DocumentTitle;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -45,7 +75,7 @@ namespace browser
             if (webBrowser.CanGoBack)
             {
                 webBrowser.GoBack();
-            }            
+            }
         }
 
         private void btnFrd_Click(object sender, RoutedEventArgs e)
@@ -73,9 +103,22 @@ namespace browser
         {
             DataTransfer dataTransfer = new DataTransfer();
             prefix = await dataTransfer.GetEngineAttribute("prefix");
+            bool hasUrlType = await dataTransfer.HasUrlType(searchBox.Text);
 
-            if (selectedTab.Name != "settingsTab")
+            if (hasUrlType)
             {
+                if (!searchBox.Text.Contains("http://") || !searchBox.Text.Contains("https://"))
+                {
+                    selectedWebView.Navigate(new Uri("https://www." + searchBox.Text));
+                }
+                else
+                {
+                    searchBox.Text = "https://www." + searchBox.Text;
+                }
+            }
+            else
+            {
+
                 if (selectedWebView == null)
                 {
                     webBrowser.Source = new Uri(prefix + searchBox.Text);
@@ -86,11 +129,13 @@ namespace browser
                 }
             }
 
+
+
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            webBrowser.Source = new Uri("https://www.google.com/");
+            NavigateHome();
         }
 
         private void settingMenuItem_Click(object sender, RoutedEventArgs e)
@@ -100,9 +145,9 @@ namespace browser
                 AddSetingTab();
                 settingTabCount++;
             }
-            
+
         }
-        
+
         private void AddSetingTab()
         {
             var settingsTab = new muxc.TabViewItem();
@@ -123,7 +168,6 @@ namespace browser
             try
             {
                 searchBox.Text = webBrowser.Source.AbsoluteUri;
-
                 DataTransfer dataTransfer = new DataTransfer();
                 if (!string.IsNullOrEmpty(searchBox.Text))
                 {
@@ -142,30 +186,27 @@ namespace browser
                 sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/lock.ico"));
                 toolTip.Content = "This website has a SSL certefication";
                 ToolTipService.SetToolTip(sslBth, toolTip);
-            } else
+            }
+            else
             {
                 sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/unlock.ico"));
                 toolTip.Content = "This website hasn't a SSL certefication";
                 ToolTipService.SetToolTip(sslBth, toolTip);
             }
 
-            
+            defaultTab.Header = webBrowser.DocumentTitle;
 
         }
 
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
-            var newTab = new muxc.TabViewItem();
-            newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Add };
+            AddNewTab(new Uri(homeUrl));
+        }
 
-            WebView webView = new WebView();
-            newTab.Content = webView;
-            webView.Navigate(new Uri("https://www.google.com"));
-            sender.TabItems.Add(newTab);
-            sender.SelectedItem = newTab;
-
-            webView.NavigationCompleted += BrowserNavigated;
-
+        private void NewWindowsRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
+        {
+            AddNewTab(args.Uri);
+            args.Handled = true;
         }
 
         private void BrowserNavigated(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -193,7 +234,7 @@ namespace browser
             if (selectedTab != null)
             {
                 selectedWebView = selectedTab.Content as WebView;
-                
+
             }
 
             if (selectedWebView != null)
@@ -222,6 +263,26 @@ namespace browser
             {
 
             }
+        }
+
+        private void webBrowser_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
+        {
+            AddNewTab(args.Uri);
+            args.Handled = true;
+        }
+
+        private void AddNewTab(Uri Url)
+        {
+            var newTab = new muxc.TabViewItem();
+            newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Add };
+
+            WebView webView = new WebView();
+            newTab.Content = webView;
+            webView.Navigate(Url);
+            tabView.TabItems.Add(newTab);
+            tabView.SelectedItem = newTab;
+            webView.NavigationCompleted += BrowserNavigated;
+            webView.NewWindowRequested += NewWindowsRequested;
         }
     }
 }

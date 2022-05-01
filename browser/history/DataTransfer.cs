@@ -160,5 +160,55 @@ namespace browser.history
 
             return value;
         }
+
+        public async Task<bool> HasUrlType(string searchString)
+        {
+            bool result = false;
+
+            await Task.Run(async () =>
+            {
+                var document = await DocumentLoad();
+                var types = document.GetElementsByTagName("types");
+                var typeChildren = types[0].ChildNodes;
+
+                for (int i = 0; i < typeChildren.Count; i++)
+                {
+                    if (typeChildren[i].NodeName == "type")
+                    {
+                        if (searchString.Contains(typeChildren[i].Attributes.GetNamedItem("name").InnerText))
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            });
+
+            return result;
+        }
+
+        public async void SetHome(string Name, string Url)
+        {
+            var document = await DocumentLoad();
+
+            var home = document.GetElementsByTagName("home");
+            home[0].Attributes.GetNamedItem("name").InnerText = Name;
+            home[0].Attributes.GetNamedItem("url").InnerText = Url;
+
+            SaveDocument(document);
+        }
+
+        public async Task<string> GetHomeAttribute(string Source)
+        {
+            string result = "";
+
+            await Task.Run(async () =>
+            {
+                var document = await DocumentLoad();
+                var home = document.GetElementsByTagName("home");
+                result = home[0].Attributes.GetNamedItem(Source).InnerText;
+            });
+
+            return result;
+        }
     }
 }
