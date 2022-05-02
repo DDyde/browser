@@ -246,7 +246,7 @@ namespace browser.history
                     {
                         for (int j = 0; j < favoriteChild.Count; j++)
                         {
-                            if (favoriteChild[j].NodeName == "url" || favoriteChild[j].NodeName == "title")
+                            if (favoriteChild[j].NodeName == "url")
                             {
                                 returnUrl = favoriteChild[j].InnerText;
                             }
@@ -293,7 +293,7 @@ namespace browser.history
 
     public class FavoriteDetails
     {
-        public string Title { get; set; }
         public string Url { get; set; }
+        public string Title { get; set; }
     }
 }

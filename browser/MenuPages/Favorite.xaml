@@ -10,7 +10,7 @@
     Loaded="Page_Loaded">
 
     <Grid>
-        <ListBox x:Name="bookmarkListPage" Background="{x:Null}">
+        <ListBox x:Name="favoriteListPage" Background="{x:Null}">
             
         </ListBox>            
     </Grid>
