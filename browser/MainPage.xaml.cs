@@ -271,6 +271,14 @@ namespace browser
             args.Handled = true;
         }
 
+        private void favorite_Click(object sender, RoutedEventArgs e)
+        {
+            DataTransfer dataTransfer = new DataTransfer();
+            dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.DocumentTitle);
+
+
+        }
+
         private void AddNewTab(Uri Url)
         {
             var newTab = new muxc.TabViewItem();

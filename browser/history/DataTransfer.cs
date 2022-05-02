@@ -210,5 +210,90 @@ namespace browser.history
 
             return result;
         }
+
+        public async void  SaveFavorites(string Url, string Title)
+        {
+            var document = await DocumentLoad();
+
+            var favorites = document.GetElementsByTagName("favorites");
+            var favorite = favorites[0].AppendChild(document.CreateElement("favorite"));
+            var favoriteUrl = favorite.AppendChild(document.CreateElement("url"));
+            var favoriteTitle = favorite.AppendChild(document.CreateElement("title"));
+
+            favoriteTitle.InnerText = Title;
+            favoriteUrl.InnerText = Url;
+
+            SaveDocument(document);
+        }
+
+        public async Task<List<FavoriteDetails>> GetFavoriteList()
+        {
+            List<FavoriteDetails> favoriteList = new List<FavoriteDetails>();
+
+            await Task.Run(async () =>
+            {
+                var document = await DocumentLoad();
+
+                var favorite = document.GetElementsByTagName("favorite");
+                for (int i = 0; i < favorite.Count; i++)
+                {
+                    var favoriteChild = favorite[i].ChildNodes;
+
+                    string returnUrl = string.Empty;
+                    string returnTitle = string.Empty;
+
+                    if (favorite[i].NodeName == "favorite")
+                    {
+                        for (int j = 0; j < favoriteChild.Count; j++)
+                        {
+                            if (favoriteChild[j].NodeName == "url" || favoriteChild[j].NodeName == "title")
+                            {
+                                returnUrl = favoriteChild[j].InnerText;
+                            }
+
+                            if (favoriteChild[j].NodeName == "title")
+                            {
+                                returnTitle = favoriteChild[j].InnerText;
+                            }
+                        }
+                    }
+
+                    if (returnUrl != string.Empty && returnTitle != string.Empty)
+                    {
+                        favoriteList.Add(new FavoriteDetails { Title = returnTitle, Url = returnUrl });
+                    }
+                }
+            });
+
+            return favoriteList;
+        }
+
+        public async void RemoveFavorite(string Url)
+        {
+            var document = await DocumentLoad();
+
+            var favorite = document.GetElementsByTagName("favorite");
+
+            for (int i = 0; i < favorite.Count; i++)
+            {
+                var favoriteChild = favorite[i].ChildNodes;
+
+                for (int j = 0; j < favoriteChild.Count; j++)
+                {
+                    if (favoriteChild[j].NodeName == Url)
+                    {
+                        favoriteChild[j].ParentNode.ParentNode.RemoveChild(favorite[i]);
+                    }
+                }
+            }
+
+            SaveDocument(document);
+        }
+    }
+
+    public class FavoriteDetails
+    {
+        public string Title { get; set; }
+        public string Url { get; set; }
     }
 }
