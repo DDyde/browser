@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Class="browser.MainPage"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     x:Name="MainWindow"
     Loaded="MainWindow_Loaded"
@@ -17,29 +17,30 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <muxc:TabView x:Name="tabView" Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabView_SelectionChanged">
-            <muxc:TabView.TabStripHeader>
+        <controls:TabView x:Name="tabView" Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabView_SelectionChanged">
+            <controls:TabView.TabStripHeader>
                 <Grid>
 
                 </Grid>
-            </muxc:TabView.TabStripHeader>
-            <muxc:TabView.TabStripFooter>
+            </controls:TabView.TabStripHeader>
+            <controls:TabView.TabStripFooter>
                 <Grid>
 
                 </Grid>
-            </muxc:TabView.TabStripFooter>
-            <muxc:TabView.TabItems>
-                <muxc:TabViewItem x:Name="defaultTab">
-                    <muxc:TabViewItem.IconSource>
-                        <muxc:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
-                    </muxc:TabViewItem.IconSource>
+            </controls:TabView.TabStripFooter>
+            <controls:TabView.TabItems>
+                <controls:TabViewItem x:Name="defaultTab">
+                    <controls:TabViewItem.IconSource>
+                        <controls:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
+                    </controls:TabViewItem.IconSource>
 
-                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" NewWindowRequested="webBrowser_NewWindowRequested">
-                    </WebView>
+                    <controls:WebView2 x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" >
 
-                </muxc:TabViewItem>
-            </muxc:TabView.TabItems>
-        </muxc:TabView>
+                    </controls:WebView2>
+
+                </controls:TabViewItem>
+            </controls:TabView.TabItems>
+        </controls:TabView>
 
         <Grid x:Name="TitleBarGrid" Background="{StaticResource wbRowLine}">
             <Grid.ColumnDefinitions>

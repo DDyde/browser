@@ -6,13 +6,12 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls">
 
     <Application.Resources>
-        <ResourceDictionary Source="/CustomResources.xaml">
-            
-            <ResourceDictionary.MergedDictionaries>
-                <controls:XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+        <controls:XamlControlsResources>
+            <controls:XamlControlsResources.MergedDictionaries>
+                
                 <ResourceDictionary Source="/CustomResources.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+            </controls:XamlControlsResources.MergedDictionaries>
+        </controls:XamlControlsResources>
     </Application.Resources>
     
 </Application>

@@ -37,7 +37,7 @@ namespace browser.MenuPages
         {
             favoriteListPage.Items.Clear();
             DataTransfer dataTransfer = new DataTransfer();
-            
+
             List<FavoriteDetails> favoriteDetails = await dataTransfer.GetFavoriteList();
 
             for (int i = 0; i < favoriteDetails.Count; i++)

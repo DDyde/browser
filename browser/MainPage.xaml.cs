@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
@@ -29,45 +30,15 @@ namespace browser
         int settingTabCount = 0;
         public string prefix = string.Empty;
         muxc.TabViewItem selectedTab = null;
-        WebView selectedWebView = null;
-        string homeUrl = string.Empty, homeName = string.Empty;
+        muxc.WebView2 selectedWebView = null;
+        string homeUrl = "https://www.google.com";
 
 
         public MainPage()
         {
             this.InitializeComponent();
-
             Data data = new Data();
             data.SettingsFiles();
-
-            GetHome();
-        }
-
-        private async void GetHome()
-        {
-            try
-            {
-                DataTransfer dataTransfer = new DataTransfer();
-                homeName = await dataTransfer.GetHomeAttribute("name");
-                homeUrl = await dataTransfer.GetHomeAttribute("url");
-
-            }
-            catch (Exception ex)
-            {
-                MessageDialog messageDialog = new MessageDialog(ex.Message);
-                await messageDialog.ShowAsync();
-            }
-
-            if (!string.IsNullOrEmpty(homeUrl) && !string.IsNullOrEmpty(homeName))
-            {
-                NavigateHome();
-            }
-        }
-
-        private void NavigateHome()
-        {
-            selectedWebView.Navigate(new Uri(homeUrl));
-            selectedTab.Header = selectedWebView.DocumentTitle;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -88,7 +59,7 @@ namespace browser
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            webBrowser.Refresh();
+            webBrowser.Reload();
         }
 
         private void searchBox_KeyDown(object sender, KeyRoutedEventArgs e)
@@ -109,7 +80,8 @@ namespace browser
             {
                 if (!searchBox.Text.Contains("http://") || !searchBox.Text.Contains("https://"))
                 {
-                    selectedWebView.Navigate(new Uri("https://www." + searchBox.Text));
+                    selectedWebView.CoreWebView2.Navigate(new Uri("https://www." + searchBox.Text).ToString());
+
                 }
                 else
                 {
@@ -118,6 +90,7 @@ namespace browser
             }
             else
             {
+
 
                 if (selectedWebView == null)
                 {
@@ -135,7 +108,7 @@ namespace browser
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            NavigateHome();
+            webBrowser.Source = new Uri(homeUrl);
         }
 
         private void settingMenuItem_Click(object sender, RoutedEventArgs e)
@@ -161,7 +134,7 @@ namespace browser
             tabView.SelectedItem = settingsTab;
         }
 
-        private void webBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void webBrowser_NavigationCompleted(muxc.WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
         {
             ToolTip toolTip = new ToolTip();
 
@@ -171,7 +144,7 @@ namespace browser
                 DataTransfer dataTransfer = new DataTransfer();
                 if (!string.IsNullOrEmpty(searchBox.Text))
                 {
-                    dataTransfer.saveSearchTerm(webBrowser.DocumentTitle, webBrowser.Source.AbsoluteUri);
+                    dataTransfer.saveSearchTerm(webBrowser.CoreWebView2.DocumentTitle, webBrowser.Source.AbsoluteUri);
                 }
 
             }
@@ -194,26 +167,8 @@ namespace browser
                 ToolTipService.SetToolTip(sslBth, toolTip);
             }
 
-            defaultTab.Header = webBrowser.DocumentTitle;
+            defaultTab.Header = webBrowser.CoreWebView2.DocumentTitle;
 
-        }
-
-        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
-        {
-            AddNewTab(new Uri(homeUrl));
-        }
-
-        private void NewWindowsRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
-        {
-            AddNewTab(args.Uri);
-            args.Handled = true;
-        }
-
-        private void BrowserNavigated(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            var view = sender as WebView;
-            var tab = view.Parent as muxc.TabViewItem;
-            tab.Header = view.DocumentTitle;
         }
 
         private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
@@ -233,7 +188,7 @@ namespace browser
             selectedTab = tabView.SelectedItem as muxc.TabViewItem;
             if (selectedTab != null)
             {
-                selectedWebView = selectedTab.Content as WebView;
+                selectedWebView = selectedTab.Content as muxc.WebView2;
 
             }
 
@@ -265,32 +220,31 @@ namespace browser
             }
         }
 
-        private void webBrowser_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
-        {
-            AddNewTab(args.Uri);
-            args.Handled = true;
-        }
 
         private void favorite_Click(object sender, RoutedEventArgs e)
         {
             DataTransfer dataTransfer = new DataTransfer();
-            dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.DocumentTitle);
-
-
+            dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.CoreWebView2.DocumentTitle);
         }
 
-        private void AddNewTab(Uri Url)
+        private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
             var newTab = new muxc.TabViewItem();
             newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Add };
 
-            WebView webView = new WebView();
+            muxc.WebView2 webView = new muxc.WebView2();
             newTab.Content = webView;
-            webView.Navigate(Url);
-            tabView.TabItems.Add(newTab);
-            tabView.SelectedItem = newTab;
-            webView.NavigationCompleted += BrowserNavigated;
-            webView.NewWindowRequested += NewWindowsRequested;
+            webView.CoreWebView2.Navigate(new Uri("https://www.google.com").ToString());
+            sender.TabItems.Add(newTab);
+            sender.SelectedItem = newTab;
+            webView.CoreWebView2.NavigationCompleted += BrowserNavigated;
+        }
+
+        private void BrowserNavigated(muxc.WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
+        {
+            var view = sender as muxc.WebView2;
+            var tab = view.Parent as muxc.TabViewItem;
+            tab.Header = view.CoreWebView2.DocumentTitle;
         }
     }
 }
