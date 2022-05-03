@@ -30,7 +30,7 @@ namespace browser
         {
             this.Suspending += OnSuspending;
         }
-
+        public static ThemeManager ThemeManager => (ThemeManager)App.Current.Resources["ThemeManager"];
         /// <summary>
         /// Вызывается при обычном запуске приложения пользователем. Будут использоваться другие точки входа,
         /// например, если приложение запускается для открытия конкретного файла.

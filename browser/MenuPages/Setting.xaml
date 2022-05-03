@@ -6,13 +6,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Loaded="Page_Loaded"
-    Background="{StaticResource wbBackGround}">
+    Background="{Binding wbBackGround, Source={StaticResource ThemeManager}}">
 
     <Grid>
-        <Grid>
-            <ComboBox x:Name="searchComboBox" Margin="10" Padding="20, 0" Header="Choose a Search engine" DropDownClosed="searchComboBox_DropDownClosed">
-                
-            </ComboBox>
-        </Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="MainThemeButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="200" Click="MainThemeButton_Click">
+            <Image Source="/Assets\icon\iconB2.png" Stretch="UniformToFill"/>
+        </Button>
+        <Button x:Name="SunsetThemeButton" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="200" Click="SunsetThemeButton_Click">
+            <Image Source="/Assets\icon\iconB2.png" Stretch="UniformToFill"/>
+        </Button>
+        <Button x:Name="PurpleThemeButton" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="200" Click="PurpleThemeButton_Click">
+            <Image Source="/Assets\icon\iconB2.png" Stretch="UniformToFill"/>
+        </Button>
+        <ComboBox x:Name="searchComboBox" Grid.Row="1" Margin="10" Padding="20, 0" Header="Choose a Search engine" DropDownClosed="searchComboBox_DropDownClosed"/>
     </Grid>
 </Page>

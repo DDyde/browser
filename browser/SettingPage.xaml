@@ -7,38 +7,38 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     x:Name="settingPage"
-    Background="{StaticResource wbBackGround}">
+    Background="{Binding wbBackGround, Source={StaticResource ThemeManager}}">
 
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource wbRowLine}">
+        <Grid Background="{Binding wbRowLine, Source={StaticResource ThemeManager}}">
 
-            <TextBlock Text="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource wbForeground}"/>
+            <TextBlock Text="Menu" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
             </Grid>
         
         
-        <NavigationView x:Name="navView" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="navView_SelectionChanged" Background="{StaticResource wbGreen}">
+        <NavigationView x:Name="navView" Grid.Row="1" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" SelectionChanged="navView_SelectionChanged" Background="{Binding wbGreen, Source={StaticResource ThemeManager}}">
             <NavigationView.MenuItems >
-                <NavigationViewItem Content="Account" Tag="accountItem" Icon="Emoji2" Foreground="{StaticResource wbForeground}"/>
+                <NavigationViewItem Content="Account" Tag="accountItem" Icon="Emoji2" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
 
-                <NavigationViewItem Content="Favorite" Tag="favoriteItem" Foreground="{StaticResource wbForeground}">
+                <NavigationViewItem Content="Favorite" Tag="favoriteItem" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets\icon\ico\serd.ico"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="Settings" Tag="settingItem" Foreground="{StaticResource wbForeground}">
+                <NavigationViewItem Content="Settings" Tag="settingItem" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <NavigationViewItem.Icon>
                         <BitmapIcon UriSource="Assets\icon\ico\shest.ico"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
 
-                <NavigationViewItem Content="History" Tag="historyItem" Icon="Clock" Foreground="{StaticResource wbForeground}"/>
+                <NavigationViewItem Content="History" Tag="historyItem" Icon="Clock" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
             </NavigationView.MenuItems>
-            <Frame x:Name="contentFrame" Background="{StaticResource wbBackGround}"/>
+            <Frame x:Name="contentFrame" Background="{Binding wbBackGround, Source={StaticResource ThemeManager}}"/>
         </NavigationView>
         </Grid>
 </Page>

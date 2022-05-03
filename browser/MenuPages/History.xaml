@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource wbBackGround}" Loaded="Page_Loaded">
+    Background="{Binding wbBackGround, Source={StaticResource ThemeManager}}" Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="History" HorizontalAlignment="Center" Foreground="{StaticResource wbForeground}"/>
+        <TextBlock Text="History" HorizontalAlignment="Center" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
         <ListBox x:Name="listHistory" Grid.Row="1" Background="{x:Null}">
             
         </ListBox>

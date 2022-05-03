@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     x:Name="MainWindow"
     Loaded="MainWindow_Loaded"
-    Background="{StaticResource wbBackGround}">
+    Background="{Binding wbBackground, Source={StaticResource ThemeManager}}">
 
     <Grid x:Name="BaseGrid">
         <Grid.RowDefinitions>
@@ -41,7 +41,7 @@
             </muxc:TabView.TabItems>
         </muxc:TabView>
 
-        <Grid x:Name="TitleBarGrid" Background="{StaticResource wbRowLine}">
+        <Grid x:Name="TitleBarGrid" Background="{ Binding wbRowLine, Source={StaticResource ThemeManager}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition Width="40"/>
@@ -50,44 +50,25 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Orientation="Horizontal" >
-                <Button x:Name="btnBack" Height="30" Margin="5,0,0,0" Click="btnBack_Click" Background="Transparent" Foreground="{StaticResource wbForeground}">
+                <Button x:Name="btnBack" Height="30" Margin="5,0,0,0" Click="btnBack_Click" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <Image Source="Assets/icon/back.png"/>
                 </Button>
-                <Button x:Name="btnFrd" Height="30" Margin="5,0,0,0" Click="btnFrd_Click" Background="Transparent" Foreground="{StaticResource wbForeground}">
+                <Button x:Name="btnFrd" Height="30" Margin="5,0,0,0" Click="btnFrd_Click" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <Image Source="Assets/icon/forward.png"/>
                 </Button>
-                <Button x:Name="btnReload" Height="30" Margin="5,0,0,0" Click="btnReload_Click" Background="Transparent" Foreground="{StaticResource wbForeground}">
+                <Button x:Name="btnReload" Height="30" Margin="5,0,0,0" Click="btnReload_Click" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <Image Source="Assets/icon/reload.png"/>
                 </Button>
-                <Button x:Name="btnHome" Height="30" Margin="5,0,0,0" Click="btnHome_Click" Background="Transparent" Foreground="{StaticResource wbForeground}">
+                <Button x:Name="btnHome" Height="30" Margin="5,0,0,0" Click="btnHome_Click" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}">
                     <Image Source="Assets/icon/home.png" Margin="0,-6,0,-5" Width="23"/>
                 </Button>
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="favorite" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}" Click="favorite_Click">
+                <Button x:Name="favorite" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}" Click="favorite_Click">
                     <Image Source="Assets/icon/serd.png"/>
                 </Button>
-                <Button x:Name="setting" Content="Menu"  Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{StaticResource wbForeground}">
-                    <Button.Flyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem x:Name="settingMenuItem" Text="Settings" Click="settingMenuItem_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <BitmapIcon UriSource="Assets\icon\ico\shest.ico"/>
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            <MenuFlyoutItem x:Name="favoriteMenuItem" Text="Favorite list" Click="settingMenuItem_Click">
-                                <MenuFlyoutItem.Icon>
-                                    <BitmapIcon UriSource="Assets\icon\ico\serd.ico"/>
-                                </MenuFlyoutItem.Icon>
-                            </MenuFlyoutItem>
-                            <MenuFlyoutItem x:Name="historyMenuItem" Text="History" Click="settingMenuItem_Click">
-                                <!--<MenuFlyoutItem.Icon>
-                                    <BitmapIcon UriSource="Assets\icon\ico\shest.ico"/>
-                                </MenuFlyoutItem.Icon>-->
-                            </MenuFlyoutItem>
-                        </MenuFlyout>
-                    </Button.Flyout>
+                <Button x:Name="setting" Content="Menu"  Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}" Click="settingMenuItem_Click">
                 </Button>
             </StackPanel>
 

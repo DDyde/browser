@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{StaticResource wbBackGround}">
+    Background="{Binding wbBackGround, Source={StaticResource ThemeManager}}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,6 +14,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Account" HorizontalAlignment="Center" Foreground="{StaticResource wbForeground}"/>
+        <TextBlock Text="Account" HorizontalAlignment="Center" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
     </Grid>
 </Page>

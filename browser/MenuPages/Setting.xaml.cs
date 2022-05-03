@@ -63,5 +63,11 @@ namespace browser.MenuPages
             var selectedItem = searchComboBox.SelectedValue as ComboBoxItem;
             dataTransfer.SetSearchEngine(selectedItem.Content.ToString());
         }
+
+        private void MainThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.MainThemePath);
+
+        private void SunsetThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.SunsetThemePath);
+
+        private void PurpleThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.PurpleThemePath);
     }
 }

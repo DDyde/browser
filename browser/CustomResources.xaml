@@ -2,11 +2,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:browser">
-    
-    <SolidColorBrush x:Key="wbBackGround" Color="#313552"/>
-    <SolidColorBrush x:Key="wbRowLine" Color="#B8405E"/>
-    <SolidColorBrush x:Key="wbGreen" Color="#2EB086"/>
-    <SolidColorBrush x:Key="wbForeground" Color="#EEE6CE"/>
+
+    <local:ThemeManager x:Key="ThemeManager"/>
     <ControlTemplate x:Key="historyList" TargetType="ListBoxItem">
         <Grid>
             <Grid.ColumnDefinitions>

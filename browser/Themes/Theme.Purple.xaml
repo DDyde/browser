@@ -1,0 +1,8 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="wbBackGround" Color="#62016D"/>
+    <SolidColorBrush x:Key="wbRowLine" Color="#74217D"/>
+    <SolidColorBrush x:Key="wbGreen" Color="#E439A1	"/>
+    <SolidColorBrush x:Key="wbForeground" Color="#A767D5"/>
+</ResourceDictionary>
