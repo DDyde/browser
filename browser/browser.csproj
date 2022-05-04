@@ -124,9 +124,6 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MenuPages\Account.xaml.cs">
-      <DependentUpon>Account.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MenuPages\Favorite.xaml.cs">
       <DependentUpon>Favorite.xaml</DependentUpon>
     </Compile>
@@ -156,9 +153,12 @@
     <Content Include="Assets\icon\ico\serd.ico" />
     <Content Include="Assets\icon\ico\shest.ico" />
     <Content Include="Assets\icon\ico\unlock.ico" />
+    <Content Include="Assets\icon\Main.jpg" />
+    <Content Include="Assets\icon\Purple.jpg" />
     <Content Include="Assets\icon\reload.png" />
     <Content Include="Assets\icon\forward.png" />
     <Content Include="Assets\icon\serd.png" />
+    <Content Include="Assets\icon\Sunset.jpg" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />
@@ -202,10 +202,6 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="MenuPages\Account.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MenuPages\Favorite.xaml">
       <SubType>Designer</SubType>

@@ -59,8 +59,7 @@ namespace browser.history
 
             await Task.Run(async () =>
             {
-                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-                XmlDocument document = await XmlDocument.LoadFromFileAsync(file);
+                var document = await DocumentLoad();
                 var historyItem = document.GetElementsByTagName("historyitem");
 
                 for (int i = 0; i < historyItem.Count; i++)
@@ -92,8 +91,7 @@ namespace browser.history
 
             await Task.Run(async () =>
             {
-                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-                XmlDocument document = await XmlDocument.LoadFromFileAsync(file);
+                var document = await DocumentLoad();
 
                 var searchEngine = document.GetElementsByTagName("searchEngine");
 
@@ -186,17 +184,6 @@ namespace browser.history
             return result;
         }
 
-        public async void SetHome(string Name, string Url)
-        {
-            var document = await DocumentLoad();
-
-            var home = document.GetElementsByTagName("home");
-            home[0].Attributes.GetNamedItem("name").InnerText = Name;
-            home[0].Attributes.GetNamedItem("url").InnerText = Url;
-
-            SaveDocument(document);
-        }
-
         public async Task<string> GetHomeAttribute(string Source)
         {
             string result = "";
@@ -266,28 +253,6 @@ namespace browser.history
             });
 
             return favoriteList;
-        }
-
-        public async void RemoveFavorite(string Url)
-        {
-            var document = await DocumentLoad();
-
-            var favorite = document.GetElementsByTagName("favorite");
-
-            for (int i = 0; i < favorite.Count; i++)
-            {
-                var favoriteChild = favorite[i].ChildNodes;
-
-                for (int j = 0; j < favoriteChild.Count; j++)
-                {
-                    if (favoriteChild[j].NodeName == Url)
-                    {
-                        favoriteChild[j].ParentNode.ParentNode.RemoveChild(favorite[i]);
-                    }
-                }
-            }
-
-            SaveDocument(document);
         }
     }
 

@@ -22,7 +22,7 @@ namespace browser
         public const string MainThemePath = "ms-appx:///Themes/Theme.Main.xaml";
         public const string SunsetThemePath = "ms-appx:///Themes/Theme.Sunset.xaml";
         public const string PurpleThemePath = "ms-appx:///Themes/Theme.Purple.xaml";
-
+        
         private ResourceDictionary _currentThemeDictionary;
 
         public string CurrentTheme { get; private set; }
@@ -46,15 +46,6 @@ namespace browser
             _currentThemeDictionary = new ResourceDictionary();
             App.LoadComponent(_currentThemeDictionary, new Uri(path));
             CurrentTheme = Path.GetFileNameWithoutExtension(path);
-
-            RaisePropertyChanged();
-        }
-
-        public async Task LoadThemeFromFile(StorageFile file)
-        {
-            string xaml = await FileIO.ReadTextAsync(file);
-            _currentThemeDictionary = XamlReader.Load(xaml) as ResourceDictionary;
-            CurrentTheme = Path.GetFileNameWithoutExtension(file.Path);
 
             RaisePropertyChanged();
         }

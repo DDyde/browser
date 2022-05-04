@@ -14,13 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using browser.history;
 
-// Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace browser.MenuPages
 {
-    /// <summary>
-    /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
-    /// </summary>
     public sealed partial class Setting : Page
     {
         public Setting()
@@ -64,10 +59,13 @@ namespace browser.MenuPages
             dataTransfer.SetSearchEngine(selectedItem.Content.ToString());
         }
 
-        private void MainThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.MainThemePath);
+        private void MainThemeButton_Click(object sender, RoutedEventArgs e) 
+            => App.ThemeManager.LoadTheme(ThemeManager.MainThemePath);
 
-        private void SunsetThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.SunsetThemePath);
+        private void SunsetThemeButton_Click(object sender, RoutedEventArgs e)
+            => App.ThemeManager.LoadTheme(ThemeManager.SunsetThemePath);
 
-        private void PurpleThemeButton_Click(object sender, RoutedEventArgs e) => App.ThemeManager.LoadTheme(ThemeManager.PurpleThemePath);
+        private void PurpleThemeButton_Click(object sender, RoutedEventArgs e) 
+            => App.ThemeManager.LoadTheme(ThemeManager.PurpleThemePath);
     }
 }

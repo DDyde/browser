@@ -39,7 +39,6 @@ namespace browser
 
             Data data = new Data();
             data.SettingsFiles();
-
             GetHome();
         }
 
@@ -91,6 +90,12 @@ namespace browser
             webBrowser.Refresh();
         }
 
+
+        private void btnHome_Click(object sender, RoutedEventArgs e)
+        {
+            NavigateHome();
+        }
+
         private void searchBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
@@ -111,10 +116,6 @@ namespace browser
                 {
                     selectedWebView.Navigate(new Uri("https://www." + searchBox.Text));
                 }
-                else
-                {
-                    searchBox.Text = "https://www." + searchBox.Text;
-                }
             }
             else
             {
@@ -131,11 +132,6 @@ namespace browser
 
 
 
-        }
-
-        private void btnHome_Click(object sender, RoutedEventArgs e)
-        {
-            NavigateHome();
         }
 
         private void settingMenuItem_Click(object sender, RoutedEventArgs e)
@@ -203,12 +199,6 @@ namespace browser
             AddNewTab(new Uri(homeUrl));
         }
 
-        private void NewWindowsRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
-        {
-            AddNewTab(args.Uri);
-            args.Handled = true;
-        }
-
         private void BrowserNavigated(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             var view = sender as WebView;
@@ -249,22 +239,6 @@ namespace browser
 
         }
 
-        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                DataTransfer dataTransfer = new DataTransfer();
-                string searchEngineName = await dataTransfer.GetEngineAttribute("name");
-                prefix = await dataTransfer.GetEngineAttribute("prefix");
-
-                searchBox.PlaceholderText = "search with " + searchEngineName + "...";
-            }
-            catch
-            {
-
-            }
-        }
-
         private void webBrowser_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
         {
             AddNewTab(args.Uri);
@@ -275,8 +249,6 @@ namespace browser
         {
             DataTransfer dataTransfer = new DataTransfer();
             dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.DocumentTitle);
-
-
         }
 
         private void AddNewTab(Uri Url)
@@ -290,7 +262,7 @@ namespace browser
             tabView.TabItems.Add(newTab);
             tabView.SelectedItem = newTab;
             webView.NavigationCompleted += BrowserNavigated;
-            webView.NewWindowRequested += NewWindowsRequested;
+            webView.NewWindowRequested += webBrowser_NewWindowRequested;
         }
     }
 }

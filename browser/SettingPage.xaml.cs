@@ -35,21 +35,17 @@ namespace browser
 
             if (!args.IsSettingsSelected)
             {
-                if (tag == "accountItem")
+                switch (tag)
                 {
-                    contentFrame.Navigate(typeof(Account), null, args.RecommendedNavigationTransitionInfo);
-                }
-                else if (tag == "favoriteItem")
-                {
-                    contentFrame.Navigate(typeof(Favorite), null, args.RecommendedNavigationTransitionInfo);
-                }
-                else if (tag == "historyItem")
-                {
-                    contentFrame.Navigate(typeof(History), null, args.RecommendedNavigationTransitionInfo);
-                }
-                else if (tag == "settingItem")
-                {
-                    contentFrame.Navigate(typeof(Setting), null, args.RecommendedNavigationTransitionInfo);
+                    case "favoriteItem":
+                        contentFrame.Navigate(typeof(Favorite), null, args.RecommendedNavigationTransitionInfo);
+                        break;
+                    case "historyItem":
+                        contentFrame.Navigate(typeof(History), null, args.RecommendedNavigationTransitionInfo);
+                        break;
+                    case "settingItem":
+                        contentFrame.Navigate(typeof(Setting), null, args.RecommendedNavigationTransitionInfo);
+                        break;
                 }
 
             }
