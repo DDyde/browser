@@ -71,23 +71,23 @@ namespace browser
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            if (webBrowser.CanGoBack)
+            if (selectedWebView.CanGoBack)
             {
-                webBrowser.GoBack();
+                selectedWebView.GoBack();
             }
         }
 
         private void btnFrd_Click(object sender, RoutedEventArgs e)
         {
-            if (webBrowser.CanGoForward)
+            if (selectedWebView.CanGoForward)
             {
-                webBrowser.GoForward();
+                selectedWebView.GoForward();
             }
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            webBrowser.Refresh();
+            selectedWebView.Refresh();
         }
 
 
@@ -159,11 +159,10 @@ namespace browser
 
         private void webBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            ToolTip toolTip = new ToolTip();
 
             try
             {
-                searchBox.Text = webBrowser.Source.AbsoluteUri;
+                searchBox.Text = args.Uri.AbsoluteUri;
                 DataTransfer dataTransfer = new DataTransfer();
                 if (!string.IsNullOrEmpty(searchBox.Text))
                 {
@@ -177,7 +176,16 @@ namespace browser
                 throw;
             }
 
-            if (webBrowser.Source.AbsoluteUri.Contains("https"))
+            CheckSSL();
+
+            defaultTab.Header = webBrowser.DocumentTitle;
+
+        }
+
+        private void CheckSSL()
+        {
+            ToolTip toolTip = new ToolTip();
+            if (selectedWebView.Source.AbsoluteUri.Contains("https"))
             {
                 sslIcon.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/ico/lock.ico"));
                 toolTip.Content = "This website has a SSL certefication";
@@ -189,9 +197,6 @@ namespace browser
                 toolTip.Content = "This website hasn't a SSL certefication";
                 ToolTipService.SetToolTip(sslBth, toolTip);
             }
-
-            defaultTab.Header = webBrowser.DocumentTitle;
-
         }
 
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
@@ -204,6 +209,8 @@ namespace browser
             var view = sender as WebView;
             var tab = view.Parent as muxc.TabViewItem;
             tab.Header = view.DocumentTitle;
+            searchBox.Text = view.Source.AbsoluteUri;
+            CheckSSL();
         }
 
         private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)

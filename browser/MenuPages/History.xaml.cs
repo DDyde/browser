@@ -40,6 +40,7 @@ namespace browser.MenuPages
                 ListBoxItem listBoxItem = new ListBoxItem();
                 listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
                 listBoxItemCount++;
+                listBoxItem.
                 Style style = Application.Current.Resources["historyList"] as Style;
                 listBoxItem.Style = style;
                 listBoxItem.Content = item;
