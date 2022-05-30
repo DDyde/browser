@@ -14,7 +14,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="History" HorizontalAlignment="Center" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
+        <TextBlock x:Name="text" Text="History" HorizontalAlignment="Center" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}"/>
         <ListBox x:Name="listHistory" Grid.Row="1" Background="{x:Null}">
             
         </ListBox>

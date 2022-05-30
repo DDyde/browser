@@ -134,6 +134,23 @@ namespace browser.history
             SaveDocument(document);
         }
 
+        public async void DeleteSearchTerm(string urlAddress)
+        {
+            var document = await DocumentLoad();
+            var historyItem = document.GetElementsByTagName("history");
+            var historyUrl = historyItem[0].ChildNodes;
+            for (int i = 0; i < historyUrl.Count; i++)
+            {
+                if (historyUrl[i].NodeName == "historyitem")
+                {
+                    if (historyUrl[i].InnerText == urlAddress)
+                    {
+                        historyUrl[i].ParentNode.RemoveChild(historyItem[i]);
+                    }
+                }
+            }
+        }
+
         public async Task<string> GetEngineAttribute(string AttributeName)
         {
             string value = string.Empty;
@@ -158,6 +175,8 @@ namespace browser.history
 
             return value;
         }
+
+
 
         public async Task<bool> HasUrlType(string searchString)
         {

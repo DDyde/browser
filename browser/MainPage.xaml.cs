@@ -256,6 +256,10 @@ namespace browser
         {
             DataTransfer dataTransfer = new DataTransfer();
             dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.DocumentTitle);
+
+            //notifyFav.Text = "Страница " + selectedWebView.DocumentTitle + " была добавлена в закладки. " + "\r\n" + selectedWebView.Source.AbsoluteUri;
+            //favImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/serdFill.png"));
+
         }
 
         private void AddNewTab(Uri Url)

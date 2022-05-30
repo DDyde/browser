@@ -30,7 +30,7 @@ namespace browser.MenuPages
         {
             this.InitializeComponent();
         }
-
+        
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             DataTransfer dataTransfer = new DataTransfer();
@@ -40,12 +40,37 @@ namespace browser.MenuPages
                 ListBoxItem listBoxItem = new ListBoxItem();
                 listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
                 listBoxItemCount++;
-                listBoxItem.
+                listBoxItem.Tapped += listBoxItem_Tapped;
                 Style style = Application.Current.Resources["historyList"] as Style;
                 listBoxItem.Style = style;
                 listBoxItem.Content = item;
                 listHistory.Items.Add(listBoxItem);
             }
+        }
+
+        private async void listBoxItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ContentDialog chooseItem = new ContentDialog() {
+                Title = "Выбор действия для поля",
+                Content = "Необходимо выбрать действие для выбранного поля",
+                PrimaryButtonText = "Перейти",
+                SecondaryButtonText = "Удалить",
+                CloseButtonText = "Отмена"
+            };           
+
+            ContentDialogResult result = await chooseItem.ShowAsync();
+            switch (result)
+            {
+                case ContentDialogResult.Primary:
+                    break;
+                case ContentDialogResult.Secondary:
+                    DataTransfer dataTransfer = new DataTransfer();
+                    dataTransfer.DeleteSearchTerm("https://yandex.ru/search/?text=toontune+animation&lr=213");
+                    break;
+                default:
+                    break;
+            }
+
         }
     }
 }

@@ -158,6 +158,7 @@
     <Content Include="Assets\icon\reload.png" />
     <Content Include="Assets\icon\forward.png" />
     <Content Include="Assets\icon\serd.png" />
+    <Content Include="Assets\icon\serdFill.png" />
     <Content Include="Assets\icon\Sunset.jpg" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />

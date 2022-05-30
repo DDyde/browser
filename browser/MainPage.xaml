@@ -64,9 +64,15 @@
             </StackPanel>
 
             <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="favorite" Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}" Click="favorite_Click">
-                    <Image Source="Assets/icon/serd.png"/>
+                <Button x:Name="favorite" Margin="0,0,5,0" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}" Click="favorite_Click">
+                    <Image x:Name="favImage" Source="Assets/icon/serd.png"/>
+                    <Button.Flyout>
+                        <Flyout>
+                            <TextBlock x:Name="notifyFav"/>
+                        </Flyout>
+                    </Button.Flyout>
                 </Button>
+
                 <Button x:Name="setting" Content="Menu"  Height="30" Margin="0,0,5,0" Background="Transparent" Foreground="{Binding wbForeground, Source={StaticResource ThemeManager}}" Click="settingMenuItem_Click">
                 </Button>
             </StackPanel>
