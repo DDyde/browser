@@ -134,21 +134,48 @@ namespace browser.history
             SaveDocument(document);
         }
 
-        public async void DeleteSearchTerm(string urlAddress)
+        public async void DeleteSearchTerm(string Url)
         {
             var document = await DocumentLoad();
-            var historyItem = document.GetElementsByTagName("history");
-            var historyUrl = historyItem[0].ChildNodes;
-            for (int i = 0; i < historyUrl.Count; i++)
+            var history = document.GetElementsByTagName("history");
+            var historyItem = history[0].ChildNodes;
+            for (int i = 0; i < historyItem.Count; i++)
             {
-                if (historyUrl[i].NodeName == "historyitem")
+                if (historyItem[i].NodeName == "historyitem")
                 {
-                    if (historyUrl[i].InnerText == urlAddress)
+                    var historyUrl = historyItem[i].ChildNodes;
+                    for (int j = 0; j < historyUrl.Count; j++)
                     {
-                        historyUrl[i].ParentNode.RemoveChild(historyItem[i]);
+                        if (historyUrl[j].NodeName == "url" && historyUrl[j].InnerText == Url)
+                        {
+                            historyUrl[j].ParentNode.ParentNode.RemoveChild(historyItem[i]);
+                        }
+                    }
+                    
+                }
+            }
+            SaveDocument(document);
+        }
+
+        public async void RemoveFavorite(string Url)
+        {
+            var document = await DocumentLoad();
+            var favorite = document.GetElementsByTagName("favorite");
+
+            for (int i = 0; i < favorite.Count; i++)
+            {
+                var favoriteChild = favorite[i].ChildNodes;
+
+                for (int j = 0; j < favoriteChild.Count; j++)
+                {
+                    if (favoriteChild[j].NodeName == "url" && favoriteChild[j].InnerText == Url)
+                    {
+                        favoriteChild[j].ParentNode.ParentNode.RemoveChild(favorite[i]);
                     }
                 }
             }
+
+            SaveDocument(document);
         }
 
         public async Task<string> GetEngineAttribute(string AttributeName)

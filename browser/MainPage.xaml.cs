@@ -65,29 +65,44 @@ namespace browser
 
         private void NavigateHome()
         {
-            selectedWebView.Navigate(new Uri(homeUrl));
-            selectedTab.Header = selectedWebView.DocumentTitle;
+            if (selectedTab.Name != "settingsTab")
+            {
+                selectedWebView.Navigate(new Uri(homeUrl));
+                selectedTab.Header = selectedWebView.DocumentTitle;
+            }            
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedWebView.CanGoBack)
+            if (selectedTab.Name != "settingsTab")
             {
-                selectedWebView.GoBack();
+                if (selectedWebView.CanGoBack)
+                {
+                    selectedWebView.GoBack();
+                }
             }
+            
         }
 
         private void btnFrd_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedWebView.CanGoForward)
+            if (selectedTab.Name != "settingsTab")
             {
-                selectedWebView.GoForward();
+                if (selectedWebView.CanGoForward)
+                {
+                    selectedWebView.GoForward();
+                }
             }
+            
         }
 
         private void btnReload_Click(object sender, RoutedEventArgs e)
         {
-            selectedWebView.Refresh();
+            if (selectedTab.Name != "settingsTab")
+            {
+                selectedWebView.Refresh();
+            }
+            
         }
 
 

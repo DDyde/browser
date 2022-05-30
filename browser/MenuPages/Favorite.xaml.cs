@@ -32,7 +32,7 @@ namespace browser.MenuPages
         {
             GetFavorites();
         }
-
+        ListBoxItem listBoxItem;
         private async void GetFavorites()
         {
             favoriteListPage.Items.Clear();
@@ -42,10 +42,39 @@ namespace browser.MenuPages
 
             for (int i = 0; i < favoriteDetails.Count; i++)
             {
-                ListBoxItem listBoxItem = new ListBoxItem();
+                listBoxItem = new ListBoxItem();
                 listBoxItem.Style = Application.Current.Resources["favoriteListStyle"] as Style;
                 listBoxItem.DataContext = favoriteDetails[i];
+                listBoxItem.Tapped += ListBoxItem_Tapped;
                 favoriteListPage.Items.Add(listBoxItem);
+            }
+        }
+
+        private async void ListBoxItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+
+            //var url = ((TextBlock)favoriteListPage.SelectedItem).link;
+
+            ContentDialog chooseItem = new ContentDialog()
+            {
+                Title = "Выбор действия для поля",
+                Content = "Необходимо выбрать действие для выбранного поля",
+                PrimaryButtonText = "Перейти",
+                SecondaryButtonText = "Удалить",
+                CloseButtonText = "Отмена"
+            };
+
+            ContentDialogResult result = await chooseItem.ShowAsync();
+            switch (result)
+            {
+                case ContentDialogResult.Primary:
+                    break;
+                case ContentDialogResult.Secondary:
+                    DataTransfer dataTransfer = new DataTransfer();
+                    //dataTransfer.DeleteSearchTerm();
+                    break;
+                default:
+                    break;
             }
         }
     }

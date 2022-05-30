@@ -24,20 +24,27 @@ namespace browser.MenuPages
     public sealed partial class History : Page
     {
 
-        int listBoxItemCount  = 0;
+        int listBoxItemCount = 0;
 
         public History()
         {
             this.InitializeComponent();
         }
-        
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+
+        ListBoxItem listBoxItem;
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadListBox();
+        }
+
+        private async void LoadListBox()
         {
             DataTransfer dataTransfer = new DataTransfer();
             List<string> historyUrlItem = await dataTransfer.Fetch("url");
             foreach (var item in historyUrlItem)
             {
-                ListBoxItem listBoxItem = new ListBoxItem();
+                listBoxItem = new ListBoxItem();
                 listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
                 listBoxItemCount++;
                 listBoxItem.Tapped += listBoxItem_Tapped;
@@ -50,6 +57,8 @@ namespace browser.MenuPages
 
         private async void listBoxItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            string url = listBoxItem.Content.ToString();
+
             ContentDialog chooseItem = new ContentDialog() {
                 Title = "Выбор действия для поля",
                 Content = "Необходимо выбрать действие для выбранного поля",
@@ -65,12 +74,19 @@ namespace browser.MenuPages
                     break;
                 case ContentDialogResult.Secondary:
                     DataTransfer dataTransfer = new DataTransfer();
-                    dataTransfer.DeleteSearchTerm("https://yandex.ru/search/?text=toontune+animation&lr=213");
+                    dataTransfer.DeleteSearchTerm(url);
+                    RefreshBox();
                     break;
                 default:
                     break;
             }
+           
+        }
 
+        private void RefreshBox()
+        {
+            listHistory.Items.Clear();
+            LoadListBox();
         }
     }
 }
