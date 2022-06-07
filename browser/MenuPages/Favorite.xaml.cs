@@ -53,7 +53,7 @@ namespace browser.MenuPages
         private async void ListBoxItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
 
-            //var url = ((TextBlock)favoriteListPage.SelectedItem).link;
+            string url = ((TextBlock)favoriteListPage.SelectedItem).Text;
 
             ContentDialog chooseItem = new ContentDialog()
             {
@@ -70,7 +70,8 @@ namespace browser.MenuPages
                 case ContentDialogResult.Primary:
                     break;
                 case ContentDialogResult.Secondary:
-                    DataTransfer dataTransfer = new DataTransfer();
+                    favText.Text = url;
+                    //DataTransfer dataTransfer = new DataTransfer();
                     //dataTransfer.DeleteSearchTerm();
                     break;
                 default:

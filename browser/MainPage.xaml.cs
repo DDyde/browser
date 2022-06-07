@@ -27,6 +27,7 @@ namespace browser
     public sealed partial class MainPage : Page
     {
         int settingTabCount = 0;
+        int tabCount = 0;
         public string prefix = string.Empty;
         muxc.TabViewItem selectedTab = null;
         WebView selectedWebView = null;
@@ -216,7 +217,8 @@ namespace browser
 
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
-            AddNewTab(new Uri(homeUrl));
+            tabView.IsAddTabButtonVisible = false;
+                AddNewTab(new Uri(homeUrl));           
         }
 
         private void BrowserNavigated(WebView sender, WebViewNavigationCompletedEventArgs args)
@@ -272,13 +274,11 @@ namespace browser
             DataTransfer dataTransfer = new DataTransfer();
             dataTransfer.SaveFavorites(selectedWebView.Source.AbsoluteUri, selectedWebView.DocumentTitle);
 
-            //notifyFav.Text = "Страница " + selectedWebView.DocumentTitle + " была добавлена в закладки. " + "\r\n" + selectedWebView.Source.AbsoluteUri;
-            //favImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/icon/serdFill.png"));
-
+            notifyFav.Text = "Страница " + selectedWebView.DocumentTitle + " была добавлена в закладки. " + "\r\n" + selectedWebView.Source.AbsoluteUri;
         }
 
         private void AddNewTab(Uri Url)
-        {
+        {   
             var newTab = new muxc.TabViewItem();
             newTab.IconSource = new muxc.SymbolIconSource() { Symbol = Symbol.Add };
 
@@ -289,6 +289,7 @@ namespace browser
             tabView.SelectedItem = newTab;
             webView.NavigationCompleted += BrowserNavigated;
             webView.NewWindowRequested += webBrowser_NewWindowRequested;
+            tabView.IsAddTabButtonVisible = true;
         }
     }
 }

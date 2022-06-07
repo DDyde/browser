@@ -16,7 +16,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <muxc:TabView x:Name="tabView" Grid.Row="1" AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabView_SelectionChanged">
+        <muxc:TabView x:Name="tabView" Grid.Row="1"  AddTabButtonClick="TabView_AddTabButtonClick" TabCloseRequested="TabView_TabCloseRequested" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" SelectionChanged="TabView_SelectionChanged">
             <muxc:TabView.TabStripHeader>
                 <Grid>
 
@@ -33,9 +33,7 @@
                         <muxc:ImageIconSource ImageSource="/Assets/Icon/ico/serd.ico"/>
                     </muxc:TabViewItem.IconSource>
 
-                    <WebView x:Name="webBrowser" Source="https://www.google.com/" NavigationCompleted="webBrowser_NavigationCompleted" NewWindowRequested="webBrowser_NewWindowRequested">
-                    </WebView>
-
+                    <WebView x:Name="webBrowser" Source="https://www.google.com/"  NavigationCompleted="webBrowser_NavigationCompleted" NewWindowRequested="webBrowser_NewWindowRequested"/>
                 </muxc:TabViewItem>
             </muxc:TabView.TabItems>
         </muxc:TabView>

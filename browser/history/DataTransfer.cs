@@ -79,11 +79,7 @@ namespace browser.history
             return list;
         }
 
-        public async void LoadXmlFile()
-        {
-            var file = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-            await Launcher.LaunchFileAsync(file);
-        }
+
 
         public async Task<List<string>> SearchEngineList(string AttributeSource)
         {

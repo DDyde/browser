@@ -10,7 +10,6 @@
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Image Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <ContentPresenter x:Name="contentPresenter" Grid.Column="1" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" 
                                   ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}"
                                   TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -130,7 +129,7 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Title}" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0"/>
+                                    <!--<TextBlock Text="{Binding Title}" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0"/>-->
                                     <TextBlock Grid.Row="1" Text="{Binding Url}" Tag="URL" FontSize="12" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25, 0"/>
                                 </StackPanel>
                             </Grid>

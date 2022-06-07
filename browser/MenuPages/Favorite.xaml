@@ -10,7 +10,12 @@
     Loaded="Page_Loaded">
 
     <Grid>
-        <ListBox x:Name="favoriteListPage" Background="{x:Null}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="favText" Text="lol"/>
+        <ListBox x:Name="favoriteListPage" Background="{x:Null}" Grid.Row="1">
             
         </ListBox>            
     </Grid>
