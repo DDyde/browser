@@ -62,19 +62,22 @@ namespace browser.MenuPages
 
         private async void LoadListBox()
         {
-            listHistory.Items.Clear();
-            DataTransfer dataTransfer = new DataTransfer();
-            List<string> historyUrlItem = await dataTransfer.Fetch("url");
-            foreach (var item in historyUrlItem)
+            for (int i = 0; i < 2; i++)
             {
-                listBoxItem = new ListBoxItem();
-                listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
-                listBoxItemCount++;
-                listBoxItem.Tapped += listBoxItem_Tapped;
-                Style style = Application.Current.Resources["historyList"] as Style;
-                listBoxItem.Style = style;
-                listBoxItem.Content = item;
-                listHistory.Items.Add(listBoxItem);
+                listHistory.Items.Clear();
+                DataTransfer dataTransfer = new DataTransfer();
+                List<string> historyUrlItem = await dataTransfer.Fetch("url");
+                foreach (var item in historyUrlItem)
+                {
+                    listBoxItem = new ListBoxItem();
+                    listBoxItem.Name = "newListBoxItem" + listBoxItemCount;
+                    listBoxItemCount++;
+                    listBoxItem.Tapped += listBoxItem_Tapped;
+                    Style style = Application.Current.Resources["historyList"] as Style;
+                    listBoxItem.Style = style;
+                    listBoxItem.Content = item;
+                    listHistory.Items.Add(listBoxItem);
+                }
             }
         }
     }

@@ -59,9 +59,12 @@ namespace browser.MenuPages
             dataTransfer.SetSearchEngine(selectedItem.Content.ToString());
         }
 
-        private void MainThemeButton_Click(object sender, RoutedEventArgs e) 
-            => App.ThemeManager.LoadTheme(ThemeManager.MainThemePath);
-
+        private void MainThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            var MainThemePath = ThemeManager.MainThemePath;
+            App.ThemeManager.LoadTheme(MainThemePath);
+            searchComboBox.Header = MainThemePath;
+        }
         private void SunsetThemeButton_Click(object sender, RoutedEventArgs e)
             => App.ThemeManager.LoadTheme(ThemeManager.SunsetThemePath);
 

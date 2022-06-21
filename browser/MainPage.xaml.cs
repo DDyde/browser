@@ -27,7 +27,6 @@ namespace browser
     public sealed partial class MainPage : Page
     {
         int settingTabCount = 0;
-        int tabCount = 0;
         public string prefix = string.Empty;
         muxc.TabViewItem selectedTab = null;
         WebView selectedWebView = null;
@@ -37,7 +36,7 @@ namespace browser
         public MainPage()
         {
             this.InitializeComponent();
-
+            
             Data data = new Data();
             data.SettingsFiles();
             GetHome();
@@ -175,6 +174,7 @@ namespace browser
 
         private void webBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
+            defaultTab.Header = webBrowser.DocumentTitle;
 
             try
             {
@@ -193,9 +193,6 @@ namespace browser
             }
 
             CheckSSL();
-
-            defaultTab.Header = webBrowser.DocumentTitle;
-
         }
 
         private void CheckSSL()
@@ -217,7 +214,6 @@ namespace browser
 
         private void TabView_AddTabButtonClick(muxc.TabView sender, object args)
         {
-            tabView.IsAddTabButtonVisible = false;
                 AddNewTab(new Uri(homeUrl));           
         }
 
@@ -227,7 +223,13 @@ namespace browser
             var tab = view.Parent as muxc.TabViewItem;
             tab.Header = view.DocumentTitle;
             searchBox.Text = view.Source.AbsoluteUri;
+            DataTransfer dataTransfer = new DataTransfer();
+            if (!string.IsNullOrEmpty(searchBox.Text))
+            {
+                dataTransfer.saveSearchTerm(tab.Header.ToString(), searchBox.Text);
+            }
             CheckSSL();
+            tabView.IsAddTabButtonVisible = true;
         }
 
         private void TabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
@@ -244,13 +246,6 @@ namespace browser
 
         private void TabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            selectedTab = tabView.SelectedItem as muxc.TabViewItem;
-            if (selectedTab != null)
-            {
-                selectedWebView = selectedTab.Content as WebView;
-
-            }
-
             if (selectedWebView != null)
             {
                 searchBox.Text = selectedWebView.Source.AbsoluteUri;
@@ -260,7 +255,12 @@ namespace browser
                 searchBox.Text = " ";
             }
 
+            selectedTab = tabView.SelectedItem as muxc.TabViewItem;
+            if (selectedTab != null)
+            {
+                selectedWebView = selectedTab.Content as WebView;
 
+            }
         }
 
         private void webBrowser_NewWindowRequested(WebView sender, WebViewNewWindowRequestedEventArgs args)
@@ -289,7 +289,7 @@ namespace browser
             tabView.SelectedItem = newTab;
             webView.NavigationCompleted += BrowserNavigated;
             webView.NewWindowRequested += webBrowser_NewWindowRequested;
-            tabView.IsAddTabButtonVisible = true;
+            tabView.IsAddTabButtonVisible = false;
         }
     }
 }

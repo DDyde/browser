@@ -27,7 +27,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
                     <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid.Resources>
+                        <!--<Grid.Resources>
                             <Style x:Key="BaseContentPresenterStyle" TargetType="ContentPresenter">
                                 <Setter Property="FontFamily" Value="XamlAutoFontFamily"/>
                                 <Setter Property="FontWeight" Value="SemiBold"/>
@@ -111,7 +111,7 @@
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
+                        </VisualStateManager.VisualStateGroups>-->
                         <Rectangle x:Name="PressedBackground" Fill="Transparent" Control.IsTemplateFocusTarget="True"/>
                         <ContentPresenter x:Name="ContentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Style="{StaticResource BodyContentPresenterStyle}" TextWrapping="NoWrap" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
@@ -130,7 +130,7 @@
                                 </Grid.RowDefinitions>
                                 <StackPanel>
                                     <!--<TextBlock Text="{Binding Title}" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10, 0"/>-->
-                                    <TextBlock Grid.Row="1" Text="{Binding Url}" Tag="URL" FontSize="12" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25, 0"/>
+                                    <TextBlock Grid.Row="1" Text="{Binding Url}" FontSize="12" FontWeight="Normal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="25, 0"/>
                                 </StackPanel>
                             </Grid>
 

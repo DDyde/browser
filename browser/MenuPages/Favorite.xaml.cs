@@ -70,7 +70,7 @@ namespace browser.MenuPages
                 case ContentDialogResult.Primary:
                     break;
                 case ContentDialogResult.Secondary:
-                    favText.Text = url;
+                    
                     //DataTransfer dataTransfer = new DataTransfer();
                     //dataTransfer.DeleteSearchTerm();
                     break;
